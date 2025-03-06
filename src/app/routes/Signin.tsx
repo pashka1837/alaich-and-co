@@ -1,17 +1,10 @@
-import { useNavigate } from "react-router";
-import { useAppSelector } from "../../lib/hooks";
-import { links } from "../../constants/links";
-import { useEffect } from "react";
+import { useAppSelector, useAuth } from "../../lib/hooks";
 import Box from "@mui/joy/Box";
 import { SignForm } from "../../components/SignForm/SignForm";
 
 export function Signin() {
   const { token } = useAppSelector((st) => st.auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) navigate(links["about"].href);
-  }, [token]);
+  useAuth(false, token);
 
   return (
     <Box

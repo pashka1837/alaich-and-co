@@ -12,7 +12,7 @@ export function NavBar() {
   const navigate = useNavigate();
   function handleSignOut() {
     dispatch(deleteToken());
-    navigate(links["about"].href);
+    navigate(links["signin"].href);
   }
   return (
     <Sheet
