@@ -4,7 +4,7 @@ import { Outlet } from "react-router";
 
 export function MainLayout() {
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
       <NavBar />
       <Outlet />
     </Box>
