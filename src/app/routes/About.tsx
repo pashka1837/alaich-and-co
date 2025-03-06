@@ -24,8 +24,6 @@ export function About() {
   return (
     <Box
       sx={{
-        height: "100%",
-        p: { xs: 2, md: 4, lg: 6 },
         display: "grid",
         justifyItems: "center",
       }}

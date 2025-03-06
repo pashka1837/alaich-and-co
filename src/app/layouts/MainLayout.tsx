@@ -6,7 +6,9 @@ export function MainLayout() {
   return (
     <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
       <NavBar />
-      <Outlet />
+      <Box sx={{ height: "100%", p: { xs: 2, md: 4, lg: 6 } }}>
+        <Outlet />
+      </Box>
     </Box>
   );
 }

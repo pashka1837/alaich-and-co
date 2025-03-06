@@ -1,10 +1,19 @@
 import { Button, Sheet } from "@mui/joy";
-import { useAppSelector } from "../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { MyNavLink } from "./MyNavLink";
 import { links } from "../../constants/links";
+import { useNavigate } from "react-router";
+import { deleteToken } from "../../feature/authSlice";
 
 export function NavBar() {
   const { token } = useAppSelector((st) => st.auth);
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+  function handleSignOut() {
+    dispatch(deleteToken());
+    navigate(links["about"].href);
+  }
   return (
     <Sheet
       component={"nav"}
@@ -21,7 +30,9 @@ export function NavBar() {
       {token ? (
         <>
           <MyNavLink {...links["profile"]} />
-          <Button color="danger">Sign out</Button>
+          <Button onClick={handleSignOut} color="danger">
+            Sign out
+          </Button>
         </>
       ) : (
         <MyNavLink {...links["signin"]} />
