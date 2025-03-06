@@ -24,3 +24,15 @@ export async function postLogin(data: { email: string; password: string }) {
     throw Error(error?.message || "Some Error happend!");
   }
 }
+
+export async function getProfile(token: string) {
+  try {
+    const res = await fetch(`/api/profile?token=${token}`);
+    if (!res.ok) throw Error();
+    const json = (await res.json()) as ProfileGetResType | ErrorResType;
+    if (!json.success) throw Error(json.data.message);
+    return json.data;
+  } catch (error: any) {
+    throw Error(error?.message || "Some Error happend!");
+  }
+}
