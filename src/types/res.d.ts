@@ -44,7 +44,7 @@ type QuoteGetResType = {
   success: true;
 };
 
-type QuoteGetResType = {
+type LogotDeleteResType = {
   data: null;
   success: true;
 };

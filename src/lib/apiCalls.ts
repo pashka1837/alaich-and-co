@@ -79,3 +79,19 @@ export async function getQuote(
     throw error;
   }
 }
+
+export async function deleteLogout(token: string) {
+  try {
+    const res = await fetch(`/api/logout?token=${token}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw errBldr("", "FetchError");
+    const json = (await res.json()) as LoginPostResType | ErrorResType;
+    if (!json.success) throw errBldr(json.data.message, "UnsuccessErr");
+    return;
+  } catch (error: any) {
+    if (error.name === "FetchError" || error.name === "TypeError")
+      throw Error("Network error happend! Try to reload.");
+    throw error;
+  }
+}

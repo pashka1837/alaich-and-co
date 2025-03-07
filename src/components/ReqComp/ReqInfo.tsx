@@ -2,12 +2,10 @@ import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
+import { LoadStatType } from "./ReqComp";
 
 type ReqInfoProps = {
-  loadStat: {
-    auth: boolean;
-    quot: boolean;
-  };
+  loadStat: LoadStatType;
   handleCancel(): void;
 };
 

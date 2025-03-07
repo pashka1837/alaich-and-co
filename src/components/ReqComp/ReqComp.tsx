@@ -9,6 +9,11 @@ type ReqCompProps = {
   token: string;
 };
 
+export type LoadStatType = {
+  auth: boolean;
+  quot: boolean;
+};
+
 export function ReqComp({
   setError,
   setOpenReq,

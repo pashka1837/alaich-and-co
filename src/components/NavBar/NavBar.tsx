@@ -4,15 +4,27 @@ import { MyNavLink } from "./MyNavLink";
 import { links } from "../../constants/links";
 import { useNavigate } from "react-router";
 import { deleteToken } from "../../feature/authSlice";
+import { deleteLogout } from "../../lib/apiCalls";
+import { useState } from "react";
 
 export function NavBar() {
   const { token } = useAppSelector((st) => st.auth);
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
-  function handleSignOut() {
-    dispatch(deleteToken());
-    navigate(links["signin"].href);
+
+  const [loading, setLoading] = useState(false);
+
+  async function handleSignOut() {
+    setLoading(true);
+    try {
+      await deleteLogout(token!);
+      setLoading(false);
+      dispatch(deleteToken());
+      navigate(links["signin"].href);
+    } catch (error: any) {
+      alert(error?.message);
+    }
+    setLoading(false);
   }
   return (
     <Sheet
@@ -30,7 +42,7 @@ export function NavBar() {
       {token ? (
         <>
           <MyNavLink {...links["profile"]} />
-          <Button onClick={handleSignOut} color="danger">
+          <Button loading={loading} onClick={handleSignOut} color="danger">
             Sign out
           </Button>
         </>
