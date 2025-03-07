@@ -20,14 +20,16 @@ export function ProfileComp() {
   const [loadInfo, setLoadInfo] = useState(false);
   const [openReq, setOpenReq] = useState(false);
 
-  const [data, setData] = useState<ProileData>(null);
+  const [profData, setProfData] = useState<ProileData>(null);
   const [errorMsg, setError] = useState<string | null>(null);
+
+  const [quoteData, setQuotData] = useState("");
   useEffect(() => {
     async function fetchData() {
       setLoadInfo(true);
       try {
         const resData = await getProfile(token!);
-        setData(resData);
+        setProfData(resData);
       } catch (error: any) {
         setError(error.message);
       }
@@ -42,6 +44,7 @@ export function ProfileComp() {
         display: "flex",
         flexDirection: "column",
         justifyItems: "center",
+        alignItems: "center",
         gap: "20px",
       }}
     >
@@ -54,9 +57,20 @@ export function ProfileComp() {
         <CircularProgress />
       ) : (
         <>
-          <ProfileInfo data={data} />
+          <ProfileInfo data={profData} />
           <UpdateBtn setOpenReq={setOpenReq} />
-          {openReq && <ReqComp setError={setError} setOpenReq={setOpenReq} />}
+          {openReq && (
+            <ReqComp
+              setError={setError}
+              setOpenReq={setOpenReq}
+              setQuotData={setQuotData}
+            />
+          )}
+          {quoteData && (
+            <Typography color="success" level="title-lg">
+              {quoteData}
+            </Typography>
+          )}
         </>
       )}
     </Box>

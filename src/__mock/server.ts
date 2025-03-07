@@ -92,7 +92,6 @@ export function makeServer() {
           if (!user) return resCreater(null);
 
           const quote = schema.findBy("quote", { authorId: Number(authorId) });
-          console.log(quote, schema.first("quote"));
           if (!quote) return resCreater(null);
           return resCreater({
             authorId,

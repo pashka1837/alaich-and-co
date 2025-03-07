@@ -8,9 +8,10 @@ import { useAppSelector } from "../../lib/hooks";
 type ReqCompProps = {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   setOpenReq: React.Dispatch<React.SetStateAction<boolean>>;
+  setQuotData: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export function ReqComp({ setError, setOpenReq }: ReqCompProps) {
+export function ReqComp({ setError, setOpenReq, setQuotData }: ReqCompProps) {
   const { token } = useAppSelector((st) => st.auth);
   const [loadStat, setLoadStat] = useState({
     auth: false,
@@ -21,12 +22,12 @@ export function ReqComp({ setError, setOpenReq }: ReqCompProps) {
   const abortCtrlQuoteRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    console.log("ue");
     const abortCtrlAuthor = new AbortController();
     const abortCtrlQuote = new AbortController();
 
     abortCtrlAuthorRef.current = abortCtrlAuthor;
     abortCtrlQuoteRef.current = abortCtrlQuote;
+
     async function fetchData() {
       setError(null);
       try {
@@ -40,8 +41,8 @@ export function ReqComp({ setError, setOpenReq }: ReqCompProps) {
           abortCtrlQuote.signal
         );
         setLoadStat({ ...loadStat, quot: false });
+        setQuotData(`${author.name}: ${quote.quote}`);
       } catch (error: any) {
-        console.error(error);
         if (error.message !== "Aborted")
           setError(error?.message || "Some Error happend, try again!");
       }
@@ -68,7 +69,6 @@ export function ReqComp({ setError, setOpenReq }: ReqCompProps) {
   }
 
   function handleCancel() {
-    console.log(abortCtrlAuthorRef.current, abortCtrlQuoteRef.current);
     abortReq(abortCtrlAuthorRef.current, abortCtrlQuoteRef.current);
     setOpenReq(false);
   }
