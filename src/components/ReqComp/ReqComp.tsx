@@ -45,8 +45,8 @@ export function ReqComp({
         setLoadStat({ ...loadStat, quot: false });
         setQuotData(`${author.name}: ${quote.quote}`);
       } catch (error: any) {
-        if (error.message !== "Aborted")
-          setError(error?.message || "Some Error happend, try again!");
+        if (error.name !== "AbortError")
+          setError(error?.message || "Some error happend, try again!");
       }
       setOpenReq(false);
     }

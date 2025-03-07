@@ -9,8 +9,9 @@ export function SigninComp() {
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
         justifyItems: "center",
+        alignItems: "baseline",
       }}
     >
       <SignForm />
