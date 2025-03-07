@@ -14,4 +14,5 @@ export type AuthorType = {
 
 export type QouteType = {
   quoute: string;
+  authorId?: number;
 };

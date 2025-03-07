@@ -4,7 +4,13 @@ import { Outlet } from "react-router";
 
 export function MainLayout() {
   return (
-    <Box sx={{ height: "100dvh", display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        height: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <NavBar />
       <Box
         component={"main"}

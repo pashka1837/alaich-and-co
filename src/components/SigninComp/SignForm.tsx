@@ -44,7 +44,13 @@ export function SignForm() {
   return (
     <Sheet
       variant="outlined"
-      sx={{ display: "flex", flexDirection: "column", gap: "10px", p: 4 }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        p: 4,
+        borderRadius: "sm",
+      }}
       component={"form"}
       onSubmit={handleSubmit}
     >

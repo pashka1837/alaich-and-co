@@ -17,3 +17,7 @@ export function userVerif(token: string | string[] | null | undefined) {
   if (!user || !user.id) return null;
   return user;
 }
+
+export function randomId(endNm: number) {
+  return Math.floor(Math.random() * endNm + 1);
+}

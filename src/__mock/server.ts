@@ -1,7 +1,7 @@
 import { belongsTo, createServer, Factory, Model } from "miragejs";
 import { authors, profiles, quoutes, users } from "./data";
 import { AuthorType, ProfileType, QouteType, UserType } from "./db-types";
-import { resCreater, userVerif } from "./utils";
+import { randomId, resCreater, userVerif } from "./utils";
 import sign from "jwt-encode";
 
 const secretKey = "123!.dsa']asdc5832,z.";
@@ -15,7 +15,7 @@ export function makeServer() {
       }),
       author: Model,
       quote: Model.extend({
-        author: belongsTo(),
+        author: belongsTo("author"),
       }),
     },
 
@@ -73,7 +73,7 @@ export function makeServer() {
           const user = userVerif(token);
           if (!user) return resCreater(null);
 
-          const author = schema.first("author");
+          const author = schema.find("author", `${randomId(authors.length)}`);
           if (!author) return resCreater(null);
           return resCreater({ authorId: author.id, name: author.name });
         },
@@ -91,13 +91,11 @@ export function makeServer() {
           const user = userVerif(token);
           if (!user) return resCreater(null);
 
-          const quote = schema.findBy("quote", {
-            author: authorId,
-          });
-          console.log(quote);
+          const quote = schema.findBy("quote", { authorId: Number(authorId) });
+          console.log(quote, schema.first("quote"));
           if (!quote) return resCreater(null);
           return resCreater({
-            authorId: quote.author,
+            authorId,
             quoteId: quote.id,
             quote: quote.quoute,
           });

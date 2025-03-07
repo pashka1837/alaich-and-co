@@ -1,10 +1,17 @@
 import Box from "@mui/joy/Box";
 import { useAppSelector, useAuth } from "../../lib/hooks";
 import { ProfileInfo } from "./ProfileInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { UpdateBtn } from "./UpdateBtn";
 import { ReqComp } from "./ReqComp";
+import { getProfile } from "../../lib/apiCalls";
+import Typography from "@mui/joy/Typography";
+
+export type ProileData = {
+  fullname: string;
+  email: string;
+} | null;
 
 export function ProfileComp() {
   const { token } = useAppSelector((st) => st.auth);
@@ -17,14 +24,14 @@ export function ProfileComp() {
   const [errorMsg, setError] = useState<string | null>(null);
   useEffect(() => {
     async function fetchData() {
-      setLoading(true);
+      setLoadInfo(true);
       try {
         const resData = await getProfile(token!);
         setData(resData);
       } catch (error: any) {
         setError(error.message);
       }
-      setLoading(false);
+      setLoadInfo(false);
     }
     fetchData();
   }, []);
@@ -32,18 +39,24 @@ export function ProfileComp() {
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
+        flexDirection: "column",
         justifyItems: "center",
-        width: "100%",
+        gap: "20px",
       }}
     >
+      {errorMsg && (
+        <Typography color="danger" level="title-lg">
+          {errorMsg}
+        </Typography>
+      )}
       {loadInfo ? (
         <CircularProgress />
       ) : (
         <>
-          <ProfileInfo token={token!} setLoading={setLoadInfo} />
+          <ProfileInfo data={data} />
           <UpdateBtn setOpenReq={setOpenReq} />
-          <ReqComp />
+          {openReq && <ReqComp setError={setError} setOpenReq={setOpenReq} />}
         </>
       )}
     </Box>

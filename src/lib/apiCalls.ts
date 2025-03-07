@@ -48,6 +48,8 @@ export async function getProfile(token: string) {
 export async function getAuthor(token: string, signal: AbortSignal | null) {
   try {
     const res = await fetch(`/api/author?token=${token}`, { signal });
+    // console.log(res);
+
     if (!res.ok) throw errBldr("", "FetchError");
     const json = (await res.json()) as AuthoreGetResType | ErrorResType;
     if (!json.success) throw Error(json.data.message);
@@ -55,6 +57,7 @@ export async function getAuthor(token: string, signal: AbortSignal | null) {
   } catch (error: any) {
     if (error.name === "FetchError" || error.name === "TypeError")
       throw Error("Network error happend! Try to reload.");
+    // if (error.name === "AbortError") return null;
     throw Error(error?.message);
   }
 }
@@ -65,9 +68,10 @@ export async function getQuote(
   signal: AbortSignal | null
 ) {
   try {
-    const res = await fetch(`/api/author?token=${token}&authorId=${authorId}`, {
+    const res = await fetch(`/api/quote?token=${token}&authorId=${authorId}`, {
       signal,
     });
+    // console.log(res);
     if (!res.ok) throw errBldr("", "FetchError");
     const json = (await res.json()) as QuoteGetResType | ErrorResType;
     if (!json.success) throw Error(json.data.message);
@@ -75,7 +79,7 @@ export async function getQuote(
   } catch (error: any) {
     if (error.name === "FetchError" || error.name === "TypeError")
       throw Error("Network error happend! Try to reload.");
-    if (error.name === "AbortError") return null;
+    // if (error.name === "AbortError") return null;
     throw Error(error.message);
   }
 }
