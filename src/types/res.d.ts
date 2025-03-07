@@ -1,50 +1,49 @@
 type ErrorResType = {
+  success: false;
   data: {
     message: string;
   };
-  success: false;
 };
 
-type InfoGetResType = {
+type SuccResType<T extends { data: unknown }> = {
+  success: true;
+  data: T["data"];
+};
+
+interface InfoDataType {
   data: {
     info: string;
   };
-  success: true;
-};
+}
 
-type LoginPostResType = {
+interface LoginDataType {
   data: {
     token: string;
   };
-  success: true;
-};
+}
 
-type ProfileGetResType = {
+interface ProfileDataType {
   data: {
     fullname: string;
     email: string;
   };
-  success: true;
-};
+}
 
-type AuthoreGetResType = {
+interface AuthorDataType {
   data: {
     authorId: string;
     name: string;
   };
-  success: true;
-};
+}
 
-type QuoteGetResType = {
+interface QuoteDataType {
   data: {
     authorId: string;
     quoteId: string;
     quote: string;
   };
-  success: true;
-};
+}
 
-type LogotDeleteResType = {
+interface LogoutDataType {
   data: null;
-  success: true;
-};
+}
