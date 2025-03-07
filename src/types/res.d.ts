@@ -5,6 +5,10 @@ type ErrorResType = {
   };
 };
 
+type QueryParams = {
+  [k: string]: string;
+};
+
 type SuccResType<T extends { data: unknown }> = {
   success: true;
   data: T["data"];

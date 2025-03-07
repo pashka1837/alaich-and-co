@@ -4,10 +4,6 @@ export function errBldr(msg: string, errorName: string) {
   return error;
 }
 
-type QueryParams = {
-  [k: string]: string;
-};
-
 export const reqBuilderFn = async <K extends { data: unknown }>(
   path: string,
   method: string,
