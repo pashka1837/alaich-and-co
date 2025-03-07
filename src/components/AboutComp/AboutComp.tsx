@@ -3,6 +3,7 @@ import { getInfo } from "../../lib/apiCalls";
 import Box from "@mui/joy/Box";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Typography from "@mui/joy/Typography";
+import { ErrorComp } from "../ErrorComp/ErrorComp";
 
 export function AboutComp() {
   const [data, setData] = useState("");
@@ -24,15 +25,18 @@ export function AboutComp() {
   }, []);
 
   return (
-    <Box>
-      {loading && !data && <CircularProgress />}
-      {!errorMsg && data ? (
-        <Typography level="title-lg">{data}</Typography>
-      ) : (
-        <Typography color="danger" level="title-lg">
-          {errorMsg}
-        </Typography>
-      )}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyItems: "center",
+        alignItems: "center",
+        gap: "20px",
+      }}
+    >
+      {loading && <CircularProgress />}
+      <ErrorComp errorMsg={errorMsg} />
+      {data && <Typography level="title-lg">{data}</Typography>}
     </Box>
   );
 }

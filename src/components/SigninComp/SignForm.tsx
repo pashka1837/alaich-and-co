@@ -1,4 +1,4 @@
-import { Button, Sheet, Typography } from "@mui/joy";
+import { Button, Sheet } from "@mui/joy";
 import { FormEvent, useState } from "react";
 import { postLogin } from "../../lib/apiCalls";
 import { useAppDispatch } from "../../lib/hooks";
@@ -6,6 +6,7 @@ import { saveToken } from "../../feature/authSlice";
 import { useNavigate } from "react-router";
 import { links } from "../../constants/links";
 import { MyInput } from "./MyInput";
+import { ErrorComp } from "../ErrorComp/ErrorComp";
 
 export function SignForm() {
   const dispatch = useAppDispatch();
@@ -66,13 +67,7 @@ export function SignForm() {
         placehldr="Password"
         label="Password"
       />
-      {formError ? (
-        <Typography color="danger" level="body-sm">
-          {formError}
-        </Typography>
-      ) : (
-        <span style={{ height: "21px" }}></span>
-      )}
+      <ErrorComp errorMsg={formError} />
       <Button loading={isLoading} type="submit">
         Submit
       </Button>

@@ -4,9 +4,10 @@ import { ProfileInfo } from "./ProfileInfo";
 import { useEffect, useState } from "react";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { UpdateBtn } from "./UpdateBtn";
-import { ReqComp } from "./ReqComp";
+import { ReqComp } from "../ReqComp/ReqComp";
 import { getProfile } from "../../lib/apiCalls";
 import Typography from "@mui/joy/Typography";
+import { ErrorComp } from "../ErrorComp/ErrorComp";
 
 export type ProileData = {
   fullname: string;
@@ -48,30 +49,26 @@ export function ProfileComp() {
         gap: "20px",
       }}
     >
-      {errorMsg && (
-        <Typography color="danger" level="title-lg">
-          {errorMsg}
-        </Typography>
-      )}
-      {loadInfo ? (
-        <CircularProgress />
-      ) : (
+      <ErrorComp errorMsg={errorMsg} />
+      {loadInfo && <CircularProgress />}
+      {profData && (
         <>
           <ProfileInfo data={profData} />
           <UpdateBtn setOpenReq={setOpenReq} />
-          {openReq && (
-            <ReqComp
-              setError={setError}
-              setOpenReq={setOpenReq}
-              setQuotData={setQuotData}
-            />
-          )}
-          {quoteData && (
-            <Typography color="success" level="title-lg">
-              {quoteData}
-            </Typography>
-          )}
         </>
+      )}
+      {profData && openReq && (
+        <ReqComp
+          token={token!}
+          setError={setError}
+          setOpenReq={setOpenReq}
+          setQuotData={setQuotData}
+        />
+      )}
+      {profData && quoteData && (
+        <Typography color="success" level="title-lg">
+          {quoteData}
+        </Typography>
       )}
     </Box>
   );
