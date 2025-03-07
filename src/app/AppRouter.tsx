@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { About } from "./routes/About";
 import { MainLayout } from "./layouts/MainLayout";
-import { Signin } from "./routes/Signin";
-import { Profile } from "./routes/Profile";
+import { lazy } from "react";
+
+const About = lazy(() => import("./routes/About"));
+const Signin = lazy(() => import("./routes/Signin"));
+const Profile = lazy(() => import("./routes/Profile"));
 
 export function AppRouter() {
   return (

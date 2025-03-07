@@ -1,5 +1,5 @@
 import { AboutComp } from "../../components/AboutComp/AboutComp";
 
-export function About() {
+export default function About() {
   return <AboutComp />;
 }

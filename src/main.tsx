@@ -4,6 +4,8 @@ import "./index.css";
 import { App } from "./app";
 import { makeServer } from "./__mock/server";
 
-makeServer();
+if (process.env.NODE_ENV === "development") {
+  makeServer({ environment: "development" });
+}
 
 createRoot(document.getElementById("root")!).render(<App />);

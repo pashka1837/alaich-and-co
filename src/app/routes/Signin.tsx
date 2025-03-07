@@ -1,5 +1,5 @@
 import { SigninComp } from "../../components/SigninComp/SigninComp";
 
-export function Signin() {
+export default function Signin() {
   return <SigninComp />;
 }

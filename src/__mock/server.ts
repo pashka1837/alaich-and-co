@@ -6,8 +6,9 @@ import sign from "jwt-encode";
 
 const secretKey = "123!.dsa']asdc5832,z.";
 
-export function makeServer() {
+export function makeServer({ environment = "test" } = {}) {
   return createServer({
+    environment,
     models: {
       user: Model,
       profile: Model.extend({

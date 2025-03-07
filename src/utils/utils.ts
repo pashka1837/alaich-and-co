@@ -18,7 +18,6 @@ export const reqBuilderFn = async <K extends { data: unknown }>(
       else url = url.concat(`&${key}=`, val);
     });
   }
-  console.log(url);
 
   const options: RequestInit = {
     method,
