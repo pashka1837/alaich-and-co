@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import "@fontsource/inter/index.css";
+import "@fontsource/inter/latin.css";
 import "./index.css";
 import { App } from "./app";
 import { makeServer } from "./__mock/server";
