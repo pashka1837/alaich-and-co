@@ -42,7 +42,8 @@ export function makeServer({ environment = "test" } = {}) {
       this.namespace = "api";
       this.get("/info", () =>
         resCreater({
-          info: `Returning info from server and Math.random=${Math.random()}`,
+          // info: `Returning info from server and Math.random=${Math.random()}`,
+          info: `The story about company`,
         })
       );
 

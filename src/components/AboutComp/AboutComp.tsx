@@ -34,9 +34,13 @@ export function AboutComp() {
         gap: "20px",
       }}
     >
-      {loading && <CircularProgress />}
+      {loading && <CircularProgress data-testid="loader" />}
       <ErrorComp errorMsg={errorMsg} />
-      {data && <Typography level="title-lg">{data}</Typography>}
+      {data && (
+        <Typography data-testid="data" level="title-lg">
+          {data}
+        </Typography>
+      )}
     </Box>
   );
 }
