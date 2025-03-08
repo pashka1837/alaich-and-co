@@ -1,10 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { createRoot } from "react-dom/client";
+import "@fontsource/inter/latin.css";
+import "./index.css";
+import { App } from "./app";
+import { makeServer } from "./__mock/server";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+if (process.env.NODE_ENV === "development") {
+  makeServer({ environment: "development" });
+}
+
+createRoot(document.getElementById("root")!).render(<App />);
