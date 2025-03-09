@@ -14,6 +14,7 @@ export function ProfileInfo({ data }: ProfileInfoProps) {
         flexDirection: "column",
         alignItems: "center",
       }}
+      data-testid="profileInfo"
     >
       {data && (
         <>

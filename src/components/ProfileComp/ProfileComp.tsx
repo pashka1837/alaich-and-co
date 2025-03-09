@@ -2,12 +2,12 @@ import Box from "@mui/joy/Box";
 import { useAppSelector, useAuth } from "../../lib/hooks";
 import { ProfileInfo } from "./ProfileInfo";
 import { useEffect, useState } from "react";
-import CircularProgress from "@mui/joy/CircularProgress";
 import { UpdateBtn } from "./UpdateBtn";
 import { ReqComp } from "../ReqComp/ReqComp";
 import { getProfile } from "../../lib/apiCalls";
 import Typography from "@mui/joy/Typography";
 import { ErrorComp } from "../ErrorComp/ErrorComp";
+import { Loader } from "../Loader";
 
 export type ProileData = {
   fullname: string;
@@ -26,18 +26,18 @@ export function ProfileComp() {
 
   const [quoteData, setQuotData] = useState("");
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(token: string) {
       setLoadInfo(true);
       try {
-        const resData = await getProfile(token!);
+        const resData = await getProfile(token);
         setProfData(resData);
       } catch (error: any) {
         setError(error.message);
       }
       setLoadInfo(false);
     }
-    fetchData();
-  }, []);
+    if (token) fetchData(token);
+  }, [token]);
 
   return (
     <Box
@@ -50,7 +50,7 @@ export function ProfileComp() {
       }}
     >
       <ErrorComp errorMsg={errorMsg} />
-      {loadInfo && <CircularProgress />}
+      {loadInfo && <Loader />}
       {profData && (
         <>
           <ProfileInfo data={profData} />
@@ -66,7 +66,7 @@ export function ProfileComp() {
         />
       )}
       {profData && quoteData && (
-        <Typography color="success" level="title-lg">
+        <Typography data-testid="quoteInfo" color="success" level="title-lg">
           {quoteData}
         </Typography>
       )}

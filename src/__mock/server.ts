@@ -16,7 +16,7 @@ export function makeServer({ environment = "test" } = {}) {
       }),
       author: Model,
       quote: Model.extend({
-        author: belongsTo("author"),
+        author: belongsTo(),
       }),
     },
 
@@ -42,7 +42,8 @@ export function makeServer({ environment = "test" } = {}) {
       this.namespace = "api";
       this.get("/info", () =>
         resCreater({
-          info: `Returning info from server and Math.random=${Math.random()}`,
+          // info: `Returning info from server and Math.random=${Math.random()}`,
+          info: `The story about company`,
         })
       );
 
@@ -61,9 +62,11 @@ export function makeServer({ environment = "test" } = {}) {
       this.get("/profile", (schema, request) => {
         const token = request.queryParams?.["token"];
         const user = userVerif(token);
+
         if (!user) return resCreater(null);
-        const profile = schema.findBy("profile", { userId: user.id });
+        const profile = schema.findBy("profile", { userId: Number(user.id) });
         if (!profile) return resCreater(null);
+
         return resCreater({ fullname: profile.fullname, email: user.email });
       });
 
