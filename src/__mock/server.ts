@@ -16,7 +16,7 @@ export function makeServer({ environment = "test" } = {}) {
       }),
       author: Model,
       quote: Model.extend({
-        author: belongsTo("author"),
+        author: belongsTo(),
       }),
     },
 
@@ -62,9 +62,11 @@ export function makeServer({ environment = "test" } = {}) {
       this.get("/profile", (schema, request) => {
         const token = request.queryParams?.["token"];
         const user = userVerif(token);
+
         if (!user) return resCreater(null);
-        const profile = schema.findBy("profile", { userId: user.id });
+        const profile = schema.findBy("profile", { userId: Number(user.id) });
         if (!profile) return resCreater(null);
+
         return resCreater({ fullname: profile.fullname, email: user.email });
       });
 
