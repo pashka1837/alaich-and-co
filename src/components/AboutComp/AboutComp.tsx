@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getInfo } from "../../lib/apiCalls";
 import Box from "@mui/joy/Box";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Typography from "@mui/joy/Typography";
 import { ErrorComp } from "../ErrorComp/ErrorComp";
+import { Loader } from "../Loader";
 
 export function AboutComp() {
   const [data, setData] = useState("");
@@ -34,10 +34,10 @@ export function AboutComp() {
         gap: "20px",
       }}
     >
-      {loading && <CircularProgress data-testid="loaderEl" />}
+      {loading && <Loader />}
       <ErrorComp errorMsg={errorMsg} />
       {data && (
-        <Typography data-testid="data" level="title-lg">
+        <Typography data-testid="dataAbout" level="title-lg">
           {data}
         </Typography>
       )}

@@ -4,5 +4,9 @@ type UpdateBtnProps = {
 };
 
 export function UpdateBtn({ setOpenReq }: UpdateBtnProps) {
-  return <Button onClick={() => setOpenReq(true)}>Update</Button>;
+  return (
+    <Button data-testid="updateBtn" onClick={() => setOpenReq(true)}>
+      Update
+    </Button>
+  );
 }

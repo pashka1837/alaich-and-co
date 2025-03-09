@@ -47,7 +47,9 @@ export function ReqInfo({ loadStat, handleCancel }: ReqInfoProps) {
         <Typography level="title-lg">
           Step 1: Requesting quote.. {loadStat.quot ? "Loading" : "Completed"}
         </Typography>
-        <Button onClick={handleCancel}>Cancel</Button>
+        <Button data-testid="cancelBtn" onClick={handleCancel}>
+          Cancel
+        </Button>
       </Sheet>
     </Box>
   );
